@@ -17,6 +17,10 @@ export default class StockSchema extends Schema {
           title: 'ISIN',
           type: 'string',
           nullable: true
+        },
+        endDate: {
+          title: 'Дата удаления',
+          type: 'string'
         }
       }
     }

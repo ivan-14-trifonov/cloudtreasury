@@ -26,7 +26,8 @@ export default function Stocks({ stocks }) {
     id: null,
     ticker: null,
     isin: null,
-    value: null
+    value: null,
+    endDate: null
   };
   const [currentStock, setCurrentStock] = useState(initialCurrentStock);
   const onClickCreateBtn = () => {
@@ -120,6 +121,7 @@ export default function Stocks({ stocks }) {
                 {showTicker && <AutoField name="ticker"/>}
                 <AutoField name="value"/>
                 <AutoField name="isin"/>
+                <AutoField name="endDate"/>
 
                 <Space size={8}>
                   <Button type="danger" onClick={showModal}>Удалить</Button>
