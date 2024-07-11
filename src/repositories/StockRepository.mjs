@@ -14,7 +14,8 @@ export default class StockRepository extends Repository {
       data: {
         ticker: data.ticker,
         value: parseInt(data.value),
-        isin: data.isin
+        isin: data.isin,
+        endDate: data.endDate
       }
     });
   }
@@ -26,7 +27,8 @@ export default class StockRepository extends Repository {
       },
       data: {
         value: parseInt(params.value),
-        isin: params.isin
+        isin: params.isin,
+        endDate: params.endDate
       }
     });
   }
