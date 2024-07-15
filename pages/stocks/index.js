@@ -51,7 +51,15 @@ export default function Stocks({ stocks }) {
   const onClickDeleteBtn = async () => {
     try {
       setIsModalOpen(false);
-      await stockResource.delete(currentStock.id);
+
+      // физическое удаление:
+      //await stockResource.delete(currentStock.id);
+
+      // логическое удаление:
+      let endDate = new Date();
+      currentStock.endDate = endDate;
+      await stockResource.store(currentStock);
+
       Notification.info('Запись удалена');
       await router.replace(router.asPath);
       resetForm();
@@ -80,6 +88,7 @@ export default function Stocks({ stocks }) {
     setShowTicker(false);
     setValue(value);
     setCurrentStock(item.stock);
+    alert(currentStock.endDate); // дата удаления
   };
 
   return (
@@ -121,8 +130,6 @@ export default function Stocks({ stocks }) {
                 {showTicker && <AutoField name="ticker"/>}
                 <AutoField name="value"/>
                 <AutoField name="isin"/>
-                <AutoField name="endDate"/>
-
                 <Space size={8}>
                   <Button type="danger" onClick={showModal}>Удалить</Button>
                   <SubmitField value="Сохранить"/>
