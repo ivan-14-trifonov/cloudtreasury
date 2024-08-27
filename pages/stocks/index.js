@@ -13,6 +13,12 @@ let formRef;
 
 export default function Stocks({ stocks }) {
 
+  // скрываем удалённые
+  var allStocks = stocks;
+  stocks = stocks.filter((el) => 
+   !el.endDate
+  );
+
   const {
     /** @type {StockSchema} */ stockSchema,
     /** @type {StockResource} */ stockResource
