@@ -14,10 +14,18 @@ let formRef;
 export default function Stocks({ stocks }) {
 
   // скрываем удалённые
-  var allStocks = stocks;
-  stocks = stocks.filter((el) => 
+  let allStocks = stocks;
+  let visibleStocks = stocks.filter((el) => 
    !el.endDate
   );
+
+  const [hideDeleted, setHideDeleted] = useState(true);
+
+  if (hideDeleted) {
+    stocks = visibleStocks;
+  } else {
+    stocks = allStocks;
+  }
 
   const {
     /** @type {StockSchema} */ stockSchema,
@@ -116,6 +124,10 @@ export default function Stocks({ stocks }) {
                 <Button className="right" type="primary" size="small" onClick={onClickCreateBtn}>Создать</Button>
               </>
             }>
+              <Space size={8}>
+                <input type="checkbox" checked={hideDeleted} onChange={() =>               setHideDeleted(!hideDeleted)} />
+                <span>Скрывать удалённые</span>
+              </Space>
               <SearchStock
                 stocks={stocks}
                 value={value}
