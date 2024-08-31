@@ -147,7 +147,6 @@ export default function Stocks({ stocks }) {
                 {showTicker && <AutoField name="ticker"/>}
                 <AutoField name="value"/>
                 <AutoField name="isin"/>
-                <p>Дата удаления: {JSON.stringify(currentStock.endDate)}</p>
                 <Space size={8}>
                   <Button type="danger" onClick={showModal}>Удалить</Button>
                   <SubmitField value="Сохранить"/>
