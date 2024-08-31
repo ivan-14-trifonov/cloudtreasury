@@ -79,7 +79,6 @@ model Stock {
   ticker       String
   value        Int
   isin         String?
-  endDate      String        @default("")
   // calculations Calculation[]
 }
 

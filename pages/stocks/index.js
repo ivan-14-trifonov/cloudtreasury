@@ -13,20 +13,6 @@ let formRef;
 
 export default function Stocks({ stocks }) {
 
-  // скрываем удалённые
-  let allStocks = stocks;
-  let visibleStocks = stocks.filter((el) => 
-   !el.endDate
-  );
-
-  const [hideDeleted, setHideDeleted] = useState(true);
-
-  if (hideDeleted) {
-    stocks = visibleStocks;
-  } else {
-    stocks = allStocks;
-  }
-
   const {
     /** @type {StockSchema} */ stockSchema,
     /** @type {StockResource} */ stockResource
@@ -40,8 +26,7 @@ export default function Stocks({ stocks }) {
     id: null,
     ticker: null,
     isin: null,
-    value: null,
-    endDate: null
+    value: null
   };
   const [currentStock, setCurrentStock] = useState(initialCurrentStock);
   const onClickCreateBtn = () => {
@@ -65,15 +50,7 @@ export default function Stocks({ stocks }) {
   const onClickDeleteBtn = async () => {
     try {
       setIsModalOpen(false);
-
-      // физическое удаление:
-      //await stockResource.delete(currentStock.id);
-
-      // логическое удаление:
-      let endDate = new Date();
-      currentStock.endDate = endDate;
-      await stockResource.store(currentStock);
-
+      await stockResource.delete(currentStock.id);
       Notification.info('Запись удалена');
       await router.replace(router.asPath);
       resetForm();
@@ -124,10 +101,6 @@ export default function Stocks({ stocks }) {
                 <Button className="right" type="primary" size="small" onClick={onClickCreateBtn}>Создать</Button>
               </>
             }>
-              <Space size={8}>
-                <input type="checkbox" checked={hideDeleted} onChange={() =>               setHideDeleted(!hideDeleted)} />
-                <span>Скрывать удалённые</span>
-              </Space>
               <SearchStock
                 stocks={stocks}
                 value={value}
@@ -147,6 +120,7 @@ export default function Stocks({ stocks }) {
                 {showTicker && <AutoField name="ticker"/>}
                 <AutoField name="value"/>
                 <AutoField name="isin"/>
+
                 <Space size={8}>
                   <Button type="danger" onClick={showModal}>Удалить</Button>
                   <SubmitField value="Сохранить"/>

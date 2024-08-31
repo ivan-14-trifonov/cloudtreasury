@@ -11,14 +11,6 @@ import moment from 'moment';
 import ActiveMarket from '../../src/constants/ActiveMarket.mjs';
 
 export default function StockValuation({ stocks }) {
-
-  // скрываем удалённые
-  let allStocks = stocks;
-  let visibleStocks = stocks.filter((el) => 
-   !el.endDate
-  );
-  stocks = visibleStocks;
-
   const {
     /** @type {TickerRatingSchema} */ tickerRatingSchema,
     /** @type {StockCalculationResultsSchema} */ stockCalculationResultsSchema,
